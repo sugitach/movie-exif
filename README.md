@@ -2,7 +2,7 @@
 Quicktime movie's ''create date'' (and other date field) in exif data sets from filename.
 
 ## Usage
-movexif.pl [options] \(srcdir|srcfile\) ... dstdir
+movexif.pl \[options\] \(srcdir|srcfile\) ... dstdir
 
 ## options:
 -f : force overwrite if exists destination files
