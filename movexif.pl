@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 # mov-exif -- filename から exif データを修正する
+# movファイルのファイル名をベースにexifデータを編集
 
 use strict;
 use warnings;
@@ -8,8 +9,6 @@ use utf8;
 use feature qw/say/;
 use Getopt::Std;
 use File::Path qw(make_path);
-use Attribute::Constant;
-use Data::Dumper;
 
 use Image::ExifTool qw(:Public);
 my $exif = Image::ExifTool->new();
@@ -24,6 +23,8 @@ sub usage {
 
   say '';
   say "## $mes";
+  say '';
+  say ' Convert from *.mov in srcdir or srcfiles to dstdir.';
   say '';
   say "Usage: $0 [options] (srcdir|srcfile) ... dstdir";
   say "options:";
