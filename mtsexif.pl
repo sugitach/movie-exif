@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 # mts-exif --- MTS ファイルを MOV に変換し、exifデータに正しい撮影日付を記録
 

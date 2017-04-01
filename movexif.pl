@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 # mov-exif -- filename から exif データを修正する
 # movファイルのファイル名をベースにexifデータを編集
