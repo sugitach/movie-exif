@@ -8,6 +8,7 @@ use utf8;
 use feature qw/say/;
 use Getopt::Std;
 use File::Path qw(make_path);
+use File::Temp qw(tempfile);
 
 use Image::ExifTool qw(:Public);
 
@@ -16,8 +17,8 @@ my $EXIF_OPTIONS = {
                     LargeFileSupport => 1,
                    };
 my $FILENAME_REGEXP = qr/\.mts$/i;
-my $DST_EXT = '.mov';
-my @ffmpeg = qw/ffmpeg -v 0 -i {SRC} -vcodec copy -acodec copy {DST}/;
+my $DST_EXT = '.mp4';
+my @ffmpeg = qw/ffmpeg -y -v 0 -i {SRC} -vcodec copy -acodec copy {DST}/;
 
 sub usage {
   my $mes = shift;
@@ -122,12 +123,16 @@ sub convert {
     if (make_path($dstdir) > 0) {
       say "directory: [$dstdir] created.";
     }
+    # # 中間ファイル
+    mkdir "$ENV{HOME}/tmp";
+    my ($fh, $temp) = tempfile('mtsexifXXXX', DIR=>"$ENV{HOME}/tmp", SUFFIX=>$DST_EXT, UNLINK=>1);
+
     # mts から mov へ変換
     my @cmd = map {
       if ($_ eq '{SRC}') {
         $srcfile;
       } elsif ($_ eq '{DST}') {
-        $dstfile;
+        $temp;
       } else {
         $_;
       }
@@ -139,6 +144,6 @@ sub convert {
       $exif->SetNewValue($tag, $val);
     }
     $exif->SetNewValue('CreateDate', $date) unless (exists $exifdata{createdate});
-    $exif->WriteInfo($dstfile);
+    $exif->WriteInfo($temp, $dstfile);
   }
 }
