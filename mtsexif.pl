@@ -16,7 +16,7 @@ my $exif = Image::ExifTool->new();
 my $EXIF_OPTIONS = {
                     LargeFileSupport => 1,
                    };
-my $FILENAME_REGEXP = qr/\.mts$/i;
+my $FILENAME_REGEXP = qr/\.(mts|mp4)$/i;
 my $DST_EXT = '.mp4';
 my @ffmpeg = qw/ffmpeg -y -v 0 -i {SRC} -vcodec copy -acodec copy {DST}/;
 
